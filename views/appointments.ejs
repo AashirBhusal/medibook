@@ -1,0 +1,48 @@
+<%- include('partials/header') %>
+<h1>My appointments</h1>
+<% if (notice) { %><div class="box success"><%= notice %></div><% } %>
+<% if (error) { %><div class="box error"><%= error %></div><% } %>
+
+<h2>Upcoming</h2>
+<% if (upcoming.length === 0) { %>
+  <p class="muted">No upcoming appointments. <a href="/search">Book one now</a>.</p>
+<% } else { %>
+<table class="list">
+  <tr><th>When</th><th>Clinician</th><th>Type</th><th>Status</th><th></th></tr>
+  <% upcoming.forEach(a => { %>
+  <tr>
+    <td><%= fmt(a.start_time) %></td>
+    <td><%= a.clinician_name %></td>
+    <td><%= a.type_name %></td>
+    <td><span class="tag tag-<%= a.status %>"><%= a.status %></span></td>
+    <td>
+      <% if (hoursUntil(a.start_time) >= 2) { %>
+        <form method="post" action="/appointments/<%= a.id %>/cancel" onsubmit="return confirm('Cancel this appointment?')">
+          <button class="link-btn" type="submit">Cancel</button>
+        </form>
+      <% } else { %>
+        <span class="small muted">phone clinic to change</span>
+      <% } %>
+    </td>
+  </tr>
+  <% }) %>
+</table>
+<% } %>
+
+<h2>Past and cancelled</h2>
+<% if (past.length === 0) { %>
+  <p class="muted">Nothing here yet.</p>
+<% } else { %>
+<table class="list">
+  <tr><th>When</th><th>Clinician</th><th>Type</th><th>Status</th></tr>
+  <% past.forEach(a => { %>
+  <tr>
+    <td><%= fmt(a.start_time) %></td>
+    <td><%= a.clinician_name %></td>
+    <td><%= a.type_name %></td>
+    <td><span class="tag tag-<%= a.status %>"><%= a.status %></span></td>
+  </tr>
+  <% }) %>
+</table>
+<% } %>
+<%- include('partials/footer') %>
