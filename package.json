@@ -1,0 +1,17 @@
+{
+  "name": "medibook",
+  "version": "0.3.0",
+  "description": "MediBook - online appointment booking prototype for small general practices (ITS205 Term Project)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js"
+  },
+  "author": "Aashir Bhusal (s2400901)",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1"
+  }
+}
