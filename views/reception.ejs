@@ -1,0 +1,85 @@
+<%- include('partials/header') %>
+<h1>Reception desk</h1>
+<% if (notice) { %><div class="box success"><%= notice %></div><% } %>
+
+<form method="get" action="/reception" class="card filters">
+  <label>Day list for <input type="date" name="date" value="<%= date %>"></label>
+  <button type="submit">Show</button>
+</form>
+
+<% if (appts.length === 0) { %>
+  <p class="muted">No appointments on <%= date %>.</p>
+<% } else { %>
+<table class="list">
+  <tr><th>Time</th><th>Patient</th><th>Mobile</th><th>Clinician</th><th>Type</th><th>Channel</th><th>Status</th><th>Mark</th></tr>
+  <% appts.forEach(a => { %>
+  <tr>
+    <td><%= a.start_time.slice(11) %></td>
+    <td><%= a.patient_name %></td>
+    <td><%= a.mobile %></td>
+    <td><%= a.clinician_name %></td>
+    <td><%= a.type_name %></td>
+    <td><%= a.booking_channel %></td>
+    <td><span class="tag tag-<%= a.status %>"><%= a.status %></span></td>
+    <td class="mark">
+      <% if (a.start_time.slice(0,10) <= today) { %>
+        <form method="post" action="/reception/status/<%= a.id %>"><input type="hidden" name="status" value="arrived"><button class="mini">arrived</button></form>
+        <form method="post" action="/reception/status/<%= a.id %>"><input type="hidden" name="status" value="attended"><button class="mini">attended</button></form>
+        <form method="post" action="/reception/status/<%= a.id %>"><input type="hidden" name="status" value="dna"><button class="mini">DNA</button></form>
+      <% } else { %><span class="small muted">future</span><% } %>
+    </td>
+  </tr>
+  <% }) %>
+</table>
+<% } %>
+
+<h2>Book for a patient (phone booking)</h2>
+<form method="get" action="/reception" class="card filters">
+  <input type="hidden" name="date" value="<%= date %>">
+  <label>Date <input type="date" name="bookDate" value="<%= bookDate %>"></label>
+  <label>Clinician
+    <select name="bookClinician">
+      <option value="">Any</option>
+      <% clinicians.forEach(c => { %>
+        <option value="<%= c.id %>" <%= bookClinician === c.id ? 'selected' : '' %>><%= c.name %></option>
+      <% }) %>
+    </select>
+  </label>
+  <button type="submit">Find free slots</button>
+</form>
+
+<% if (slots.length) { %>
+<form method="post" action="/reception/book" class="card form">
+  <div class="row2">
+    <label>Patient
+      <select name="patient_id" required>
+        <% patients.forEach(p => { %>
+          <option value="<%= p.id %>"><%= p.family_name %>, <%= p.given_name %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Type
+      <select name="type_id">
+        <% types.forEach(t => { %><option value="<%= t.id %>"><%= t.name %></option><% }) %>
+      </select>
+    </label>
+  </div>
+  <label>Slot
+    <select name="slot_id">
+      <% slots.forEach(s => { %>
+        <option value="<%= s.id %>"><%= s.start_time %> — <%= s.clinician_name %></option>
+      <% }) %>
+    </select>
+  </label>
+  <button type="submit">Book for patient</button>
+</form>
+<% } %>
+
+<h2>Recent audit log</h2>
+<table class="list">
+  <tr><th>When</th><th>Who</th><th>Action</th><th>Record</th></tr>
+  <% auditRows.forEach(r => { %>
+  <tr><td><%= r.created_at %></td><td><%= r.user_type %> #<%= r.user_id %></td><td><%= r.action %></td><td><%= r.record_ref %></td></tr>
+  <% }) %>
+</table>
+<%- include('partials/footer') %>
