@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+<div class="box success big">
+  <h1>Appointment booked ✓</h1>
+  <p>Your appointment is confirmed. A confirmation would be sent to your email and mobile in the full system.</p>
+</div>
+<div class="card narrow">
+  <p><strong>Booking reference:</strong> MB-<%= String(appt.id).padStart(5, '0') %><br>
+     <strong>Clinician:</strong> <%= appt.clinician_name %><br>
+     <strong>When:</strong> <%= fmt(appt.start_time) %><br>
+     <strong>Type:</strong> <%= appt.type_name %> (<%= appt.duration_min %> min)</p>
+  <p class="small">Need to change it? You can cancel online up to 2 hours before the start time from
+  <a href="/appointments">My appointments</a>.</p>
+</div>
+<%- include('partials/footer') %>

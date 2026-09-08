@@ -1,0 +1,62 @@
+/* MediBook prototype styles - kept deliberately simple */
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f2f6f8; color: #21323c; }
+main { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+h1 { font-size: 1.5rem; margin: 12px 0 6px; }
+h2 { font-size: 1.15rem; margin: 22px 0 8px; }
+h3 { margin: 0 0 8px; }
+.lead { color: #4a5d68; margin-top: 0; }
+.muted { color: #7b8a93; font-weight: normal; font-size: .9rem; }
+.small { font-size: .85rem; }
+
+.top { background: #0f6d5f; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; flex-wrap: wrap; gap: 8px; }
+.brand { font-size: 1.3rem; font-weight: bold; }
+.brand span { color: #ffd76e; }
+.top nav { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.top a { color: #eaf6f3; text-decoration: none; font-size: .95rem; }
+.top a:hover { text-decoration: underline; }
+.who { color: #ffd76e; font-size: .95rem; }
+
+.card { background: #fff; border: 1px solid #d8e2e7; border-radius: 8px; padding: 14px 16px; margin: 12px 0; }
+.narrow { max-width: 430px; }
+.form label { display: block; margin: 8px 0; font-size: .92rem; }
+.form input, .form select { display: block; width: 100%; padding: 7px 9px; margin-top: 3px; border: 1px solid #b9c8d0; border-radius: 5px; font-size: .95rem; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+button { background: #0f6d5f; color: #fff; border: none; border-radius: 5px; padding: 9px 18px; font-size: .95rem; cursor: pointer; margin-top: 8px; }
+button:hover { background: #0c574c; }
+
+.filters { display: flex; gap: 14px; align-items: end; flex-wrap: wrap; }
+.filters label { font-size: .88rem; }
+.filters input, .filters select { display: block; margin-top: 3px; padding: 6px 8px; border: 1px solid #b9c8d0; border-radius: 5px; }
+.filters button { margin-top: 0; }
+
+.slots { display: flex; flex-wrap: wrap; gap: 8px; }
+.slots form { margin: 0; }
+.slot { background: #eaf4f1; color: #0f6d5f; border: 1px solid #9fc9bf; padding: 7px 12px; margin: 0; font-size: .9rem; }
+.slot:hover { background: #0f6d5f; color: #fff; }
+
+.box { border-radius: 6px; padding: 10px 14px; margin: 12px 0; font-size: .95rem; }
+.box.error { background: #fdeceb; border: 1px solid #e5a49f; color: #8a2620; }
+.box.warn { background: #fdf6e3; border: 1px solid #e0c98a; color: #6d5716; }
+.box.info { background: #e8f1fa; border: 1px solid #a9c6e4; color: #1f4c7a; }
+.box.success { background: #e9f6ec; border: 1px solid #99cfa6; color: #1d6231; }
+.box.big { padding: 20px; }
+.box ul { margin: 4px 0 2px 18px; padding: 0; }
+
+table.list { border-collapse: collapse; width: 100%; background: #fff; font-size: .9rem; }
+table.list th, table.list td { border: 1px solid #d8e2e7; padding: 7px 9px; text-align: left; }
+table.list th { background: #eef4f6; }
+.tag { padding: 2px 9px; border-radius: 10px; font-size: .8rem; text-transform: capitalize; }
+.tag-booked { background: #e8f1fa; color: #1f4c7a; }
+.tag-arrived { background: #fdf6e3; color: #6d5716; }
+.tag-attended { background: #e9f6ec; color: #1d6231; }
+.tag-dna { background: #fdeceb; color: #8a2620; }
+.tag-cancelled { background: #eef0f2; color: #5b6a73; }
+
+.link-btn { background: none; color: #a03d36; border: none; padding: 0; margin: 0; text-decoration: underline; cursor: pointer; font-size: .9rem; }
+.mark { white-space: nowrap; }
+.mark form { display: inline; }
+.mini { padding: 3px 8px; font-size: .78rem; margin: 1px; background: #5b7d8c; }
+
+footer { text-align: center; color: #8a99a2; font-size: .8rem; padding: 18px 0 26px; }
+@media (max-width: 620px) { .row2 { grid-template-columns: 1fr; } .filters { display: block; } }

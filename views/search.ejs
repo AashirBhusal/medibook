@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+<h1>Find an appointment</h1>
+<form method="get" action="/search" class="card filters">
+  <label>Date <input type="date" name="date" value="<%= date %>"></label>
+  <label>Clinician
+    <select name="clinician">
+      <option value="">Any clinician</option>
+      <% clinicians.forEach(c => { %>
+        <option value="<%= c.id %>" <%= clinicianId === c.id ? 'selected' : '' %>><%= c.name %> — <%= c.specialty %></option>
+      <% }) %>
+    </select>
+  </label>
+  <label>Appointment type
+    <select name="type">
+      <% types.forEach(t => { %>
+        <option value="<%= t.id %>" <%= typeId === t.id ? 'selected' : '' %>><%= t.name %> (<%= t.duration_min %> min)</option>
+      <% }) %>
+    </select>
+  </label>
+  <button type="submit">Search</button>
+</form>
+
+<% if (slots.length === 0) { %>
+  <div class="box warn">No free appointments match your search. Try another date or clinician.</div>
+<% } else { %>
+  <p class="small"><%= slots.length %> available time<%= slots.length === 1 ? '' : 's' %> on <%= date %>. Click a time to book it.</p>
+  <%
+    const byClinician = {};
+    slots.forEach(s => { (byClinician[s.clinician_name] = byClinician[s.clinician_name] || []).push(s); });
+  %>
+  <% Object.keys(byClinician).forEach(name => { %>
+    <div class="card">
+      <h3><%= name %> <span class="muted"><%= byClinician[name][0].specialty %></span></h3>
+      <div class="slots">
+        <% byClinician[name].forEach(s => { %>
+          <form method="post" action="/slots/<%= s.id %>/lock">
+            <input type="hidden" name="type" value="<%= typeId || 1 %>">
+            <button class="slot" type="submit"><%= s.start_time.slice(11) %></button>
+          </form>
+        <% }) %>
+      </div>
+    </div>
+  <% }) %>
+<% } %>
+<%- include('partials/footer') %>

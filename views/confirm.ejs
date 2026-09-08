@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+<h1>Confirm your booking</h1>
+<div class="box info">This time is held for you for 5 minutes. If you do not confirm, it will be released for other patients.</div>
+<form method="post" action="/book" class="card form narrow">
+  <input type="hidden" name="slot_id" value="<%= slot.id %>">
+  <p><strong>Clinician:</strong> <%= slot.clinician_name %><br>
+     <strong>When:</strong> <%= fmt(slot.start_time) %></p>
+  <label>Appointment type
+    <select name="type_id">
+      <% types.forEach(t => { %>
+        <option value="<%= t.id %>" <%= typeId === t.id ? 'selected' : '' %>><%= t.name %> (<%= t.duration_min %> min)</option>
+      <% }) %>
+    </select>
+  </label>
+  <button type="submit">Confirm booking</button>
+  <p class="small"><a href="/search">Back to search</a></p>
+</form>
+<%- include('partials/footer') %>
