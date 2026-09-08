@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MediBook</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">Medi<span>Book</span></div>
+  <nav>
+    <% if (patient) { %>
+      <a href="/search">Book appointment</a>
+      <a href="/appointments">My appointments</a>
+      <span class="who"><%= patient.given_name %></span>
+      <a href="/logout">Sign out</a>
+    <% } else if (staff) { %>
+      <a href="/reception">Reception desk</a>
+      <span class="who"><%= staff.display_name %></span>
+      <a href="/logout">Sign out</a>
+    <% } else { %>
+      <a href="/login">Patient sign in</a>
+      <a href="/register">Register</a>
+      <a href="/staff">Staff</a>
+    <% } %>
+  </nav>
+</header>
+<main>
